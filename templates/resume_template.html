@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - {{ name }}</title>
+    <link rel="stylesheet" href="static/css/resumeTemplate.css">
+</head>
+
+<body>
+    <div id="resume-container">
+        <!-- Profile Image and Name -->
+        <div class="profile-container">
+            {% if profile_image %}
+            <img id="profileImage" src="{{ profile_image }}" alt="Profile Image"
+                style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+            {% else %}
+            <img id="profileImage" src="{{ url_for('static', filename='default-profile.png') }}"
+                alt="Default Profile Image" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+            {% endif %}
+            <h1>{{ name }}</h1>
+        </div>
+
+        <p class="contact">
+            {{ email }} | {{ phone }} | {{ address }} | {{ website }}
+        </p>
+
+        <div class="section">
+            <h2>Summary</h2>
+            <p>{{ summary | replace("\n", "<br>") | safe }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Key Skills</h2>
+            <ul class="skills">
+                {% for skill in skills %}
+                <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+            <ul class="education">
+                {% for edu in education %}
+                <li>
+                    <strong>{{ edu.degree }}</strong>, {{ edu.institution }} <br>
+                    {{ edu.start_date }} - {{ edu.end_date }} | Final CGPA: {{ edu.cgpa }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if work_experience %}
+        <div class="section">
+            <h2>Work Experience</h2>
+            <ul class="experience">
+                {% for exp in work_experience %}
+                <li>
+                    <strong>{{ exp.position }}</strong>, {{ exp.company }} <br>
+                    {{ exp.start_date }} - {{ exp.end_date }} <br>
+                    <ul>
+                        {% for duty in exp.duties %}
+                        <li>• {{ duty }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if projects %}
+        <div class="section">
+            <h2>Projects</h2>
+            <ul class="experience">
+                {% for project in projects %}
+                <li>
+                    <strong>Title:</strong> {{ project.title }}<br />
+                    <strong>Description:</strong> {{ project.description }}<br />
+                    <strong>Technologies:</strong> {{ project.technologies }}<br />
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <button id="downloadBtn">Download Resume as PDF</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+    <script>
+        document.getElementById("downloadBtn").addEventListener("click", function () {
+            const name = "{{ name }}"; // Dynamic name from Jinja2 template
+            const element = document.body; // Target the entire body content
+
+            // Hide the button before generating the PDF
+            document.getElementById("downloadBtn").style.display = "none";
+
+            const options = {
+                margin: 10,
+                filename: `Resume - ${name}.pdf`, // Dynamic filename with name
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2,
+                    logging: true
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                },
+                pagebreak: {
+                    mode: ['avoid-all', 'css', 'legacy']
+                } // Ensures proper page breaks
+            };
+
+            html2pdf().from(element).set(options).save().then(function () {
+                // Show the button again after PDF is downloaded
+                document.getElementById("downloadBtn").style.display = "block";
+            });
+        });
+    </script>
+</body>
+
+</html>

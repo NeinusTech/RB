@@ -1,0 +1,129 @@
+{
+    "profile1": {
+        "name": "Aarav Kumar",
+        "email": "aarav.sharma@example.com",
+        "phone": "+911234567890",
+        "address": "789 Hilltop Road, Coimbatore",
+        "website": "http://aaravkumar.com",
+        "summary": "A motivated fresher with a strong foundation in software development, eager to learn and contribute in the field of full-stack development.",
+        "skills": ["Java", "HTML", "CSS", "SQL", "Node.js"],
+        "education": [
+            {
+                "degree": "B.Tech in Computer Science",
+                "institution": "Bharathiyar University",
+                "duration": "2018-2022",
+                "cgpa": "8.2"
+            }
+        ],
+        "experience": [
+            {
+                "position": "Intern",
+                "company": "TechGenix",
+                "start_date": "2022-01-15",
+                "end_date": "2023-05-20",
+                "duties": [
+                    "Supporting backend developers with integration tasks",
+                    "Testing and deploying microservices"
+                ]
+            }
+        ],
+        "projects": [
+            {
+                "title": "Online Portfolio",
+                "description": "Developed a personal portfolio website to showcase projects and skills.",
+                "technologies": "HTML, CSS, JavaScript, React"
+            },
+            {
+                "title": "E-commerce Website",
+                "description": "Built a simple e-commerce website for a local business.",
+                "technologies": "Node.js, Express, MongoDB"
+            }
+        ],
+        "photo": "static/avatar1.png"
+    },
+    "profile2": {
+        "name": "Meera Reddy",
+        "email": "meera.reddy@example.com",
+        "phone": "+919876543210",
+        "address": "24 Vasant Vihar, Bangalore",
+        "website": "http://meerareddy.com",
+        "summary": "A skilled UI/UX designer with 2 years of experience working on designing intuitive user interfaces and enhancing user experience for web and mobile applications.",
+        "skills": ["Figma", "Adobe XD", "HTML", "CSS", "JavaScript", "User Testing", "Sketch"],
+        "education": [
+            {
+                "degree": "B.Des in Graphic Design",
+                "institution": "National Institute of Design",
+                "duration": "2016-2020",
+                "cgpa": "8.4"
+            }
+        ],
+        "experience": [
+            {
+                "position": "UI/UX Designer",
+                "company": "Innovative Designs Pvt. Ltd.",
+                "start_date": "2021-10-05",
+                "end_date": "Present",
+                "duties": [
+                    "Creating user-centered designs",
+                    "Collaborating with developers to implement designs"
+                ]
+            }
+        ],
+        "projects": [
+            {
+                "title": "Mobile App UI Redesign",
+                "description": "Redesigned a banking mobile app to enhance user experience and accessibility.",
+                "technologies": "Figma, Adobe XD"
+            },
+            {
+                "title": "E-learning Platform UI",
+                "description": "Designed an interactive UI for an online learning platform.",
+                "technologies": "Sketch, HTML, CSS"
+            }
+        ],
+        "photo": "static/avatar2.png"
+    },
+    "profile3": {
+        "name": "Rajesh Kumar",
+        "email": "rajesh.kumar@example.com",
+        "phone": "+919874561234",
+        "address": "5 Park Street, Chennai",
+        "website": "http://rajeshkumar.com",
+        "summary": "A detail-oriented software engineer with 5 years of experience in backend development, specializing in Java, Spring Boot, and cloud technologies.",
+        "skills": ["Java", "Spring Boot", "RESTful APIs", "AWS", "Docker", "Git"],
+        "education": [
+            {
+                "degree": "B.Tech in Information Technology",
+                "institution": "Anna University",
+                "duration": "2014-2018",
+                "cgpa": "8.7"
+            },
+            {
+                "degree": "M.Tech in Computer Science",
+                "institution": "Indian Institute of Technology (IIT) Madras",
+                "duration": "2018-2020",
+                "cgpa": "9.1"
+            }
+        ],
+        "experience": [
+            {
+                "position": "Software Engineer",
+                "company": "TechnoSolutions Pvt. Ltd.",
+                "start_date": "2023-10-05",
+                "end_date": "2024-04-28",
+                "duties": [
+                    "Developing scalable backend services",
+                    "Implementing REST APIs and cloud solutions"
+                ]
+            }
+        ],
+        "projects": [
+            {
+                "title": "Cloud-based Inventory System",
+                "description": "Developed an inventory management system hosted on AWS.",
+                "technologies": "Java, Spring Boot, AWS, PostgreSQL"
+            }
+        ],
+        "photo": "static/avatar3.png"
+    }
+}

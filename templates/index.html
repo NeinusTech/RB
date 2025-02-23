@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script>
+        // Sample data for pre-filling
+        fetch('static/utils/profiles.json')
+            .then(response => response.json())
+            .then(data => {
+                const profileSelect = document.getElementById("profile");
+
+                // Loop through the profiles and create option elements dynamically
+                for (const profileKey in data) {
+                    const profile = data[profileKey];
+                    const option = document.createElement("option");
+                    option.value = profileKey;
+                    option.textContent = profile.name;
+                    profileSelect.appendChild(option);
+                }
+            }).catch(error => console.error("Error loading profiles:", error));
+
+
+        // Function to update the form fields when a profile is selected
+        function updateProfileData(profileKey) {
+            if (profileKey) {
+                // Fetch the selected profile data and use it as required
+                fetch('static/utils/profiles.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const profile = data[profileKey];
+                        document.getElementById('name').value = profile.name;
+                        document.getElementById('email').value = profile.email;
+                        document.getElementById('phone').value = profile.phone;
+                        document.getElementById('address').value = profile.address;
+                        document.getElementById('website').value = profile.website;
+                        document.getElementById('summary').value = profile.summary;
+                        document.getElementById('skills').value = profile.skills;
+
+                        // Update Education Section
+                        document.getElementById('edu_degree1').value = profile.education[0].degree;
+                        document.getElementById('edu_institution1').value = profile.education[0].institution;
+                        document.getElementById('edu_duration1').value = profile.education[0].duration;
+                        document.getElementById('edu_cgpa1').value = profile.education[0].cgpa;
+
+                        if (profile.education[1]) {
+                            document.getElementById('edu_degree2').value = profile.education[1].degree;
+                            document.getElementById('edu_institution2').value = profile.education[1].institution;
+                            document.getElementById('edu_duration2').value = profile.education[1].duration;
+                            document.getElementById('edu_cgpa2').value = profile.education[1].cgpa;
+                        }
+
+                        // Update Work Experience Section
+                        document.getElementById('exp_position1').value = profile.experience[0].position;
+                        document.getElementById('exp_company1').value = profile.experience[0].company;
+                        // document.getElementById('exp_start_date1').value = formatDateToDDMMYYYY(profile.experience[
+                        //     0].start_date);
+                        // document.getElementById('exp_end_date1').value = formatDateToDDMMYYYY(profile.experience[0]
+                        //     .end_date);
+                        document.getElementById('exp_start_date1').value = profile.experience[0].start_date;
+                        document.getElementById('exp_end_date1').value = profile.experience[0].end_date;
+
+                        if (profile.experience[1]) {
+                            document.getElementById('exp_position2').value = profile.experience[1].position;
+                            document.getElementById('exp_company2').value = profile.experience[1].company;
+                            // document.getElementById('exp_start_date2').value = formatDateToDDMMYYYY(profile
+                            //     .experience[1].start_date);
+                            // document.getElementById('exp_end_date2').value = formatDateToDDMMYYYY(profile
+                            //     .experience[1].end_date);
+                            document.getElementById('exp_start_date2').value = profile.experience[1].start_date;
+                            document.getElementById('exp_end_date2').value = profile.experience[1].end_date;
+                        }
+
+                        // Display Project Details 
+                        document.getElementById('project1_title').value = profile.projects[0].title;
+                        document.getElementById('project1_description').value = profile.projects[0].description;
+                        document.getElementById('project1_technologies').value = profile.projects[0].technologies;
+                        if (profile.projects[1]) {
+                            document.getElementById('project2_title').value = profile.projects[1].title;
+                            document.getElementById('project2_description').value = profile.projects[1].description;
+                            document.getElementById('project2_technologies').value = profile.projects[1]
+                                .technologies;
+                        }
+
+                        // Display Profile Image
+                        const profileImage = document.getElementById('profileImage');
+                        profileImage.src = profile.photo; // Assuming profile.photo contains the image URL
+                        profileImage.style.display = 'block'; // Show the profile image
+                    }).catch(error => console.error("Error loading profile data:", error));
+            }
+        }
+
+        // Function to preview the uploaded image
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const imageElement = document.getElementById('profileImage');
+            imageElement.style.display = 'block';
+            // Check if a file was selected
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    imageElement.src = reader.result; // Set the image source to the uploaded file
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imageElement.src = 'static/default-profile.png'; // Set to default image if no file is selected
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Resume Builder</h1>
+        <hr />
+        <label for="profile">Select Profile:</label>
+        <select id="profile" name="profile" onchange="updateProfileData(this.value)">
+            <option value="">-- Select Profile to Prefill Data --</option>
+        </select>
+
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required><br><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required><br><br>
+
+            <label for="website">Website:</label>
+            <input type="url" id="website" name="website"><br><br>
+
+            <label for="summary">Summary:</label>
+            <textarea id="summary" name="summary"></textarea><br><br>
+
+            <label for="skills">Skills:</label>
+            <textarea id="skills" name="skills"></textarea><br><br>
+
+            <div class="section-title">Education</div>
+            <label for="edu_degree1">Degree 1:</label>
+            <input type="text" id="edu_degree1" name="edu_degree1"><br><br>
+
+            <label for="edu_institution1">Institution 1:</label>
+            <input type="text" id="edu_institution1" name="edu_institution1"><br><br>
+
+            <label for="edu_duration1">Duration 1:</label>
+            <input type="text" id="edu_duration1" name="edu_duration1"><br><br>
+
+            <label for="edu_cgpa1">CGPA 1:</label>
+            <input type="text" id="edu_cgpa1" name="edu_cgpa1"><br><br>
+
+            <label for="edu_degree2">Degree 2:</label>
+            <input type="text" id="edu_degree2" name="edu_degree2"><br><br>
+
+            <label for="edu_institution2">Institution 2:</label>
+            <input type="text" id="edu_institution2" name="edu_institution2"><br><br>
+
+            <label for="edu_duration2">Duration 2:</label>
+            <input type="text" id="edu_duration2" name="edu_duration2"><br><br>
+
+            <label for="edu_cgpa2">CGPA 2:</label>
+            <input type="text" id="edu_cgpa2" name="edu_cgpa2"><br><br>
+
+            <div class="section-title">Work Experience</div>
+            <label for="exp_position1">Position 1:</label>
+            <input type="text" id="exp_position1" name="exp_position1"><br><br>
+
+            <label for="exp_company1">Company 1:</label>
+            <input type="text" id="exp_company1" name="exp_company1"><br><br>
+
+            <label for="exp_start_date1">Start Date 1:</label>
+            <input type="date" id="exp_start_date1" name="exp_start_date1"><br><br>
+
+            <label for="exp_end_date1">End Date 1:</label>
+            <input type="date" id="exp_end_date1" name="exp_end_date1"><br><br>
+
+            <label for="exp_position2">Position 2:</label>
+            <input type="text" id="exp_position2" name="exp_position2"><br><br>
+
+            <label for="exp_company2">Company 2:</label>
+            <input type="text" id="exp_company2" name="exp_company2"><br><br>
+
+            <label for="exp_start_date2">Start Date 2:</label>
+            <input type="date" id="exp_start_date2" name="exp_start_date2"><br><br>
+
+            <label for="exp_end_date2">End Date 2:</label>
+            <input type="date" id="exp_end_date2" name="exp_end_date2"><br><br>
+
+            <!-- Projects Section -->
+            <div class="section-title">Projects</div>
+            <div class="project">
+                <label for="project1_title">Project 1 Title:</label>
+                <input type="text" id="project1_title" name="project1_title">
+
+                <label for="project1_description">Project 1 Description:</label>
+                <textarea id="project1_description" name="project1_description"></textarea>
+
+                <label for="project1_technologies">Technologies:</label>
+                <input type="text" id="project1_technologies" name="project1_technologies">
+            </div>
+
+            <div class="project">
+                <label for="project2_title">Project 2 Title:</label>
+                <input type="text" id="project2_title" name="project2_title">
+
+                <label for="project2_description">Project 2 Description:</label>
+                <textarea id="project2_description" name="project2_description"></textarea>
+
+                <label for="project2_technologies">Technologies:</label>
+                <input type="text" id="project2_technologies" name="project2_technologies">
+            </div>
+
+
+            <!-- Upload Profile Picture -->
+            <label for="profile_image">Upload Profile Image:</label>
+            <input type="file" name="profile_image" id="profile_image" accept="image/*"
+                onchange="previewImage(event)"><br><br>
+
+            <div>
+                <img id="profileImage" src="static/default-profile.png" alt="Profile Image Preview"
+                    style="max-width: 150px; height: auto; display:none">
+            </div><br><br>
+
+            <input type="submit" value="Generate Resume" id="generateResumeButton" />
+        </form>
+    </div>
+</body>
+
+</html>

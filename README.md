@@ -27,7 +27,7 @@ Steps
 1️⃣ Clone the repository:
 
 git clone https://github.com/NeinusTech/RB.git
-cd resume-builder
+cd RB
 
 2️⃣ Install dependencies:
 
